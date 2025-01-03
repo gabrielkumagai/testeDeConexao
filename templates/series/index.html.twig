@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listagem de séries{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_series_form') }}" class="btn btn-dark mb-3">Adicionar</a>
+
+    <ul class="list-group">
+        {% for seriesCreateFromInput in seriesList %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ path('app_seasons', {series: seriesCreateFromInput.id}) }}">
+                    {{ seriesCreateFromInput.name }}
+                </a>
+
+                <div class="d-flex">
+                    <a href="{{ path('app_edit_series_form', {series: seriesCreateFromInput.id}) }}" class="btn btn-sm btn-primary me-2">
+                        E
+                    </a>
+                    <form method="post" action="{{ path('app_delete_series', {id: seriesCreateFromInput.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+
+                        <button class="btn btn-sm btn-danger">
+                            X
+                        </button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
